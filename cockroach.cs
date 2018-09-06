@@ -10,22 +10,20 @@ namespace _0903
 {
     public class Cockroach
     {
-        private static int Finished { get; set; }
+        private static int FinishingLine { get; set; }
         private int PositionColl { get; set; }
         private int PositionLine { get; set; }
         private string Name { get; set; }
         private static CancellationTokenSource _cts;
-        private static CancellationToken _ct;
         private static object _locker;
 
-        public Cockroach(int Number, string name)
+        public Cockroach(int number, string name)
         {
             _cts = new CancellationTokenSource();
-            _ct = _cts.Token;
             _locker = new object();
             PositionColl = 0;
-            Finished = 10;
-            PositionLine = Number;
+            FinishingLine = 10;
+            PositionLine = number;
             Name = name;
         }
 
@@ -33,25 +31,25 @@ namespace _0903
         {
             lock (_locker)
             {
-                Clear1();
+                Clear();
                 Console.SetCursorPosition(PositionColl, PositionLine);
                 Console.Write(Name);
             }
         }
 
-        private void Clear1()
+        private void Clear()
         {
             Console.SetCursorPosition(0, PositionLine);
             Console.WriteLine("-----------|");
         }
 
-        public void Start()
+        public void StartGame()
         {
             while (!_cts.IsCancellationRequested)
             {
                 Random rnd = new Random();
 
-                if (PositionColl == Finished)
+                if (PositionColl == FinishingLine)
                 {
                     Console.SetCursorPosition(0, 5);
                     Console.WriteLine($"{Name} finished first!!!");

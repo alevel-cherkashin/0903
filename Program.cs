@@ -11,16 +11,16 @@ namespace _0903
     {
         static void Main(string[] args)
         {
-            Cockroach cockroach1 = new Cockroach(0, "#");
-            Cockroach cockroach2 = new Cockroach(1, "@");
-            Cockroach cockroach3 = new Cockroach(2, "&");
-            Cockroach cockroach4 = new Cockroach(3, "%");
+            Cockroach[] cockroachs = new Cockroach[4]
+            {
+                new Cockroach(0, "#"), new Cockroach(1, "@"), new Cockroach(2, "&"), new Cockroach(3, "%")
+            };
 
-            new Thread(() => { cockroach1.Start(); }).Start();
-            new Thread(() => { cockroach2.Start(); }).Start();
-            new Thread(() => { cockroach3.Start(); }).Start();
-            new Thread(() => { cockroach4.Start(); }).Start();
-
+            foreach (Cockroach cch in cockroachs)
+            {
+                new Thread(() => { cch.StartGame(); }).Start(); ;
+            }
+          
             Task.WaitAll();
 
             Console.ReadKey();
